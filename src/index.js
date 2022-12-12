@@ -1,1 +1,3 @@
-console.log('hi user')
+import { sayHello } from './greeting/sayHello.js';
+
+sayHello()
