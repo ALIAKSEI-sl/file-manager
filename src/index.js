@@ -1,13 +1,32 @@
+import {homedir} from 'node:os';
 import { sayHello, finishingWork } from './greeting/greeting.js';
-import {homedir} from 'node:os'
+import { goUpper, GoToFolder } from './navigation/goUpper.js';
+import { getListOfFiles } from './list/list.js';
 
+let pathDirectory = homedir();
 sayHello();
-console.log(homedir());
+console.log(`You are currently in ${homedir()}`);
 
-process.stdin.on('data', (data) => {
-  if (data.toString().trim() === '.exit') {
+process.stdin.on('data', async (data) => {
+  const operation = data.toString().trim();
+  if (operation === '.exit') {
     finishingWork();
   }
+  else if (operation === 'up') {
+    pathDirectory = goUpper(pathDirectory);
+    console.log(pathDirectory)
+  }
+
+  else if (operation.startsWith('cd')) {
+    pathDirectory = GoToFolder(pathDirectory, operation.replace('cd ', ''));
+    console.log(pathDirectory)
+  }
+
+  else if (operation === 'ls') {
+    const listOfFile = await getListOfFiles(pathDirectory)
+    console.log(listOfFile)
+  }
+
 })
 
 process.on('SIGINT', () => {
