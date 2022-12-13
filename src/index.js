@@ -18,7 +18,7 @@ process.stdin.on('data', async (data) => {
   }
 
   else if (operation.startsWith('cd')) {
-    pathDirectory = GoToFolder(pathDirectory, operation.replace('cd ', ''));
+    pathDirectory = await GoToFolder(operation.replace('cd ', ''), pathDirectory);
     console.log(pathDirectory)
   }
 
