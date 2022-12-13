@@ -2,6 +2,7 @@ import {homedir} from 'node:os';
 import { sayHello, finishingWork } from './greeting/greeting.js';
 import { goUpper, GoToFolder } from './navigation/goUpper.js';
 import { getListOfFiles } from './list/list.js';
+import { readingFile } from './operationsWithFiles/read.js'
 
 let pathDirectory = homedir();
 sayHello();
@@ -25,6 +26,11 @@ process.stdin.on('data', async (data) => {
   else if (operation === 'ls') {
     const listOfFile = await getListOfFiles(pathDirectory)
     console.log(listOfFile)
+  }
+
+  else if (operation.startsWith('cat')) {
+    pathDirectory = await readingFile(operation.replace('cat ', ''), pathDirectory)
+    console.log(pathDirectory)
   }
 
 })
