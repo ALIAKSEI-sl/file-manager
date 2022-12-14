@@ -1,22 +1,16 @@
-import { access } from 'node:fs/promises';
-import { createReadStream } from 'node:fs';
+import { createReadStream } from 'fs';
+import { resolve } from 'path';
 
-export const readingFile = async (fileName, path) => {
+export const read = async (path) => {
   try {
-    await access(fileName);
-    const readStream = createReadStream(fileName, { encoding: 'utf8' });
+  if (path) {
+    const readStream = createReadStream(resolve(path), { encoding: 'utf8' });
     readStream.pipe(process.stdout);
-    return resolve(fileName);
-  } catch (error) {
-    try {
-      await access(join(path, fileName));
-      const readStream = createReadStream(join(path, fileName), { encoding: 'utf8' });
-      readStream.pipe(process.stdout);
-      return join(path, fileName)
-    } catch {
-      console.log('A non-existent path');
-      return path
-    }
+  } else {
+    console.log('Invalid input');
+  }
+  } catch {
+    console.log('Operation failed');
   }
 }
 

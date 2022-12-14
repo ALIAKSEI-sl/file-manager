@@ -1,40 +1,22 @@
-import { finishingWork } from './greeting.js';
+import { endOfWork } from './console-output.js';
+import { up, cd } from '../handlers/navigation.js';
+import { list } from '../handlers/list.js';
+import { read } from '../handlers/read.js';
 
 export const eventListener = async (data) => {
   const [command, path] = data.toString().trim().split(' ');
 
   switch (command) {
-    case 'up': {
-      if (path) {
-        console.log('Invalid input');
-      } else {
-        console.log('command up');
-      }
-    }
+    case 'up': up(path)
       break
-    case 'cd':
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'cd': cd(path)
       break
-    case 'ls':
-      if (path) {
-        console.log('Invalid input');
-      } else {
-        //function
-      }
+    case 'ls': list(path)
       break
     //********************************
-    case 'cat':
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'cat': read(path)
       break
-    case 'add':
+    case 'add': create()
       if (path) {
         //function
       } else {
@@ -105,7 +87,7 @@ export const eventListener = async (data) => {
       if (path) {
         console.log('Invalid input');
       } else {
-        finishingWork();
+        endOfWork();
       }
       break
 
