@@ -9,7 +9,7 @@ export const read = async (path) => {
   } else {
     console.log('Invalid input');
   }
-  } catch {
+  } catch(error) {
     console.log('Operation failed');
   }
 }

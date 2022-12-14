@@ -2,6 +2,7 @@ import { endOfWork } from './console-output.js';
 import { up, cd } from '../handlers/navigation.js';
 import { list } from '../handlers/list.js';
 import { read } from '../handlers/read.js';
+import { create } from '../handlers/create.js';
 
 export const eventListener = async (data) => {
   const [command, path] = data.toString().trim().split(' ');
@@ -16,12 +17,7 @@ export const eventListener = async (data) => {
     //********************************
     case 'cat': read(path)
       break
-    case 'add': create()
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'add': await create(path)
       break
     case 'rn':
       if (path) {
