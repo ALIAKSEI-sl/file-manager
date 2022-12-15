@@ -5,6 +5,7 @@ import { read } from '../handlers/read.js';
 import { create } from '../handlers/create.js';
 import { os } from '../handlers/os.js';
 import { rename } from '../handlers/rename.js';
+import { copy } from '../handlers/copy.js';
 
 export const eventListener = async (data) => {
   const [command, path, newPath] = data.toString().trim().split(' ');
@@ -23,12 +24,7 @@ export const eventListener = async (data) => {
       break
     case 'rn': await rename(path, newPath)
       break
-    case 'cp':
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'cp': await copy(path, newPath)
       break
     case 'mv':
       if (path) {
