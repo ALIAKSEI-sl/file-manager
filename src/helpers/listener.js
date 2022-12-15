@@ -8,6 +8,7 @@ import { rename } from '../handlers/rename.js';
 import { copy } from '../handlers/copy.js';
 import { move } from '../handlers/move.js';
 import { remove } from '../handlers/remove.js';
+import { hash } from '../handlers/hash.js';
 
 export const eventListener = async (data) => {
   const [command, path, newPath] = data.toString().trim().split(' ');
@@ -36,12 +37,7 @@ export const eventListener = async (data) => {
     case 'os': os(path)
       break
     //*******************************
-    case 'hash':
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'hash': await hash(path)
       break
     //********************************
     case 'compress':
