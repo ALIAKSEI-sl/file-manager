@@ -3,6 +3,7 @@ import { up, cd } from '../handlers/navigation.js';
 import { list } from '../handlers/list.js';
 import { read } from '../handlers/read.js';
 import { create } from '../handlers/create.js';
+import { os } from '../handlers/os.js';
 
 export const eventListener = async (data) => {
   const [command, path] = data.toString().trim().split(' ');
@@ -48,12 +49,7 @@ export const eventListener = async (data) => {
       }
       break
     //*******************************
-    case 'os':
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'os': os(path)
       break
     //*******************************
     case 'hash':
