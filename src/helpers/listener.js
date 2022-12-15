@@ -4,9 +4,10 @@ import { list } from '../handlers/list.js';
 import { read } from '../handlers/read.js';
 import { create } from '../handlers/create.js';
 import { os } from '../handlers/os.js';
+import { rename } from '../handlers/rename.js';
 
 export const eventListener = async (data) => {
-  const [command, path] = data.toString().trim().split(' ');
+  const [command, path, newPath] = data.toString().trim().split(' ');
 
   switch (command) {
     case 'up': up(path)
@@ -20,12 +21,7 @@ export const eventListener = async (data) => {
       break
     case 'add': await create(path)
       break
-    case 'rn':
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'rn': await rename(path, newPath)
       break
     case 'cp':
       if (path) {
