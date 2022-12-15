@@ -9,6 +9,7 @@ import { copy } from '../handlers/copy.js';
 import { move } from '../handlers/move.js';
 import { remove } from '../handlers/remove.js';
 import { hash } from '../handlers/hash.js';
+import { compress, decompress } from '../handlers/archiving.js';
 
 export const eventListener = async (data) => {
   const [command, path, newPath] = data.toString().trim().split(' ');
@@ -20,7 +21,6 @@ export const eventListener = async (data) => {
       break
     case 'ls': list(path)
       break
-    //********************************
     case 'cat': read(path)
       break
     case 'add': await create(path)
@@ -33,34 +33,15 @@ export const eventListener = async (data) => {
       break
     case 'rm': await remove(path)
       break
-    //*******************************
     case 'os': os(path)
       break
-    //*******************************
     case 'hash': await hash(path)
       break
-    //********************************
-    case 'compress':
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'compress': compress(path, newPath)
       break
-    case 'decompress':
-      if (path) {
-        //function
-      } else {
-        console.log('Invalid input');
-      }
+    case 'decompress': decompress(path, newPath)
       break
-    //*******************************
-    case '.exit':
-      if (path) {
-        console.log('Invalid input');
-      } else {
-        endOfWork();
-      }
+    case '.exit': path ? console.log('Invalid input') : endOfWork();
       break
 
     default:
