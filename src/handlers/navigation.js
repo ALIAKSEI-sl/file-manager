@@ -1,4 +1,5 @@
 import { chdir } from 'process';
+import { resolve } from 'path';
 import { getWorkingDirectory } from '../helpers/console-output.js';
 
 export const up = (path) => {
@@ -17,7 +18,7 @@ export const up = (path) => {
 export const cd = (path) => {
   try {
     if (path) {
-      chdir(path);
+      chdir(resolve(path));
       getWorkingDirectory();
     } else {
       console.log('Invalid input');

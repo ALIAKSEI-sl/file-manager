@@ -3,11 +3,11 @@ import { up, cd } from '../handlers/navigation.js';
 import { list } from '../handlers/list.js';
 import { read } from '../handlers/read.js';
 import { create } from '../handlers/create.js';
-import { os } from '../handlers/os.js';
 import { rename } from '../handlers/rename.js';
 import { copy } from '../handlers/copy.js';
 import { move } from '../handlers/move.js';
 import { remove } from '../handlers/remove.js';
+import { os } from '../handlers/os.js';
 import { hash } from '../handlers/hash.js';
 import { compress, decompress } from '../handlers/archiving.js';
 
@@ -19,9 +19,9 @@ export const eventListener = async (data) => {
       break
     case 'cd': cd(path)
       break
-    case 'ls': list(path)
+    case 'ls': await list(path)
       break
-    case 'cat': read(path)
+    case 'cat': await read(path)
       break
     case 'add': await create(path)
       break
@@ -41,11 +41,10 @@ export const eventListener = async (data) => {
       break
     case 'decompress': decompress(path, newPath)
       break
-    case '.exit': path ? console.log('Invalid input') : endOfWork();
+    case '.exit': path ? console.log('Invalid input') : endOfWork()
       break
 
-    default:
-      console.log('Invalid input');
+    default: console.log('Invalid input')
       break
   }
 }
