@@ -37,9 +37,9 @@ export const eventListener = async (data) => {
       break
     case 'hash': await hash(path)
       break
-    case 'compress': compress(path, newPath)
+    case 'compress': await compress(path, newPath)
       break
-    case 'decompress': decompress(path, newPath)
+    case 'decompress': await decompress(path, newPath)
       break
     case '.exit': path ? console.log('Invalid input') : endOfWork()
       break

@@ -1,6 +1,6 @@
-import { resolve } from 'node:path';
-import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { resolve } from 'path';
+import { createHash } from 'crypto';
+import { readFile } from 'fs/promises';
 import { getWorkingDirectory } from '../helpers/console-output.js';
 
 export const hash = async (path) => {
@@ -9,7 +9,7 @@ export const hash = async (path) => {
       const content = await readFile(resolve(path));
       const hash = createHash('sha256').update(content).digest('hex');
       console.log(hash);
-      getWorkingDirectory()
+      getWorkingDirectory();
     } catch (error) {
       console.log('Operation failed');
     }

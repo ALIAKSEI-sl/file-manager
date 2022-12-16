@@ -1,19 +1,22 @@
-import { resolve } from 'path';
+import { resolve, parse } from 'path';
 import { createWriteStream, createReadStream } from 'fs';
 import { createBrotliCompress, createBrotliDecompress } from 'zlib';
+import { pipeline } from 'stream/promises';
 import { getWorkingDirectory } from '../helpers/console-output.js';
 
 export const compress = async (path, newPath) => {
   if (path && newPath) {
     try {
       const srcFile = resolve(path);
-      const srcFileZip = resolve(newPath);
+      const { base } = parse(srcFile);
+      const srcFileZip = resolve(newPath, `${base}.br`);
       const readableStream = createReadStream(srcFile);
       const writeableStream = createWriteStream(srcFileZip);
       const brotliCompress = createBrotliCompress();
-      readableStream.pipe(brotliCompress).pipe(writeableStream);
+      await pipeline(readableStream, brotliCompress, writeableStream);
       getWorkingDirectory();
-    } catch {
+    } catch (error) {
+      console.log(error);
       console.log('Operation failed');
     }
   } else {
@@ -25,11 +28,12 @@ export const decompress = async (path, newPath) => {
   if (path && newPath) {
     try {
       const srcFile = resolve(path);
-      const srcFileZip = resolve(newPath);
+      const { name } = parse(srcFile);
+      const srcFileZip = resolve(newPath, name);
       const readableStream = createReadStream(srcFile);
       const writeableStream = createWriteStream(srcFileZip);
       const brotliDecompress = createBrotliDecompress();
-      readableStream.pipe(brotliDecompress).pipe(writeableStream);
+      await pipeline(readableStream, brotliDecompress, writeableStream);
       getWorkingDirectory();
     } catch {
       console.log('Operation failed');
