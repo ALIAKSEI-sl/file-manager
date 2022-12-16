@@ -1,11 +1,15 @@
-import { dirname, join, resolve } from 'node:path';
-import { rename as createNewName } from 'node:fs/promises';
+import { dirname, resolve } from 'path';
+import { rename as createNewName } from 'fs/promises';
 import { getWorkingDirectory } from '../helpers/console-output.js';
 
 export const rename = async (path, newPath) => {
-  const srcWrongFile = resolve(path);
-  const srcProperFile = join(dirname(srcWrongFile), newPath);
   if (path && newPath) {
+    if (newPath.includes('/') || newPath.includes('\\') || newPath.includes(':') || newPath.includes('*') || newPath.includes('?') || newPath.includes('<') || newPath.includes('>') || newPath.includes('|') || newPath.includes('"')) {
+      console.log('Operation failed');
+      return
+    }
+    const srcWrongFile = resolve(path);
+    const srcProperFile = resolve(dirname(srcWrongFile), newPath);
     try {
       await createNewName(srcWrongFile, srcProperFile);
       getWorkingDirectory();
