@@ -27,7 +27,7 @@ export const eventListener = async (data) => {
       break
     case 'rn': await rename(path, newPath)
       break
-    case 'cp': copy(path, newPath)
+    case 'cp': await copy(path, newPath)
       break
     case 'mv': await move(path, newPath)
       break

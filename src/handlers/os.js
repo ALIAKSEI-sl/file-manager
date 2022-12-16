@@ -11,7 +11,7 @@ export const os = (arg) => {
         const arrayCpus = cpus().map(({ model, speed }) => {
           return { model, frequency: `${(speed / 1000).toFixed(1)} GHz` };
         });
-        console.table(arrayCpus)
+        console.table(arrayCpus);
         getWorkingDirectory();
       }
         break

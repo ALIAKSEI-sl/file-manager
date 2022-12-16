@@ -1,16 +1,17 @@
-import { resolve } from 'node:path';
-import { createReadStream, createWriteStream } from 'node:fs';
+import { resolve, parse } from 'path';
+import { createReadStream, createWriteStream } from 'fs';
+import { pipeline } from 'stream/promises';
 import { getWorkingDirectory } from '../helpers/console-output.js';
 
-export const copy = (path, newPath) => {
-  const srcFiles = resolve(path);
-  const srcFilesCopy = resolve(newPath);
-
+export const copy = async (path, newPath) => {
   if (path && newPath) {
+    const srcFiles = resolve(path);
+    const { base } = parse(srcFiles);
+    const srcFilesCopy = resolve(newPath, base);
     try {
       const readStream = createReadStream(srcFiles);
       const writeStream = createWriteStream(srcFilesCopy);
-      readStream.pipe(writeStream);
+      await pipeline(readStream, writeStream);
       getWorkingDirectory();
     } catch (error) {
       console.log('Operation failed');
@@ -19,4 +20,3 @@ export const copy = (path, newPath) => {
     console.log('Invalid input');
   }
 };
-
