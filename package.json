@@ -1,0 +1,25 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "file manager using Node.js APIs",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ALIAKSEI-sl/file-manager.git"
+  },
+  "keywords": [
+    "nodejs",
+    "file manager",
+    "CLI"    
+  ],
+  "author": "ALIAKSEI-sl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ALIAKSEI-sl/file-manager/issues"
+  },
+  "homepage": "https://github.com/ALIAKSEI-sl/file-manager#readme"
+}
